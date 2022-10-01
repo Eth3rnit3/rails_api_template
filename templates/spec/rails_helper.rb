@@ -28,7 +28,6 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 
 RSpec.configure do |config|
-  config.include FactoryBot::Syntax::Methods
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include ApiSpecHelpers, type: :controller
   config.use_transactional_fixtures = false

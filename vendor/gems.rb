@@ -26,6 +26,7 @@ def init_test_gems!
     gem 'rspec-rails'
     gem 'webmock'
     gem 'simplecov', require: false
+    gem 'database_cleaner', require: false
   end
 end
 

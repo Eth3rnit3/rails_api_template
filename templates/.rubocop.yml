@@ -32,6 +32,9 @@ AllCops:
     - 'app/views/**/*'
     - 'app/workers/**/*'
 
+Bundler/OrderedGems:
+  Enabled: false
+
 Layout/IndentationConsistency:
   EnforcedStyle: 'indented_internal_methods'
 
