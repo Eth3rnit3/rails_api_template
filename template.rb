@@ -1,4 +1,3 @@
-require 'byebug'
 # require dependencies
 Dir["#{__dir__}/vendor/*.rb"].sort.each { |f| require f }
 
