@@ -7,14 +7,12 @@ end
 
 def run_final_commands!
   run 'bundle exec rubocop . -A'
+
+  setup_jwt_secret!
+
   git :init
   git add: "."
   git commit: "-a -m 'Initial commit'"
-
-  jwt_secret = ask('Please enter a secret for JWT encryption')
-  value = "jwt_secret: #{jwt_secret}"
-  command = "EDITOR='echo \"#{value}\" >> ' rails credentials:edit"
-  run command
 
   rails_command("db:drop")
   rails_command("db:create")
@@ -23,6 +21,12 @@ def run_final_commands!
 end
 
 private
+
+def setup_jwt_secret!
+  value = "jwt_secret: #{(0...64).map { ([65, 97].sample + rand(26)).chr }.push(rand(99)).join}"
+  command = "EDITOR='echo \"#{value}\" >> ' rails credentials:edit"
+  run command
+end
 
 def run_active_storage_install!
   run 'rails active_storage:install'

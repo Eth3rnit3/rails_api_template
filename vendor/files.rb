@@ -9,6 +9,7 @@ end
 private
 
 def copy_config!
+  copy_file 'README_template.md', 'README.md', force: true
   copy_file 'db/seeds.rb', force: true
   copy_file 'config/routes.rb', force: true
   copy_file 'config/initializers/devise.rb', force: true
