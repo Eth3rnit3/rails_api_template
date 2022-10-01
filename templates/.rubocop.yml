@@ -1,0 +1,73 @@
+# .rubocop.yml
+
+# rubocop config files for Ruby 3.0 / Rails 6+ project
+require: rubocop-rails
+AllCops:
+  TargetRubyVersion: 3.0
+  NewCops: enable
+  SuggestExtensions: false
+
+  Include:
+    - 'config.ru'
+    - 'Gemfile'
+    - 'Guardfile'
+    - 'Rakefile'
+    - 'app/**/*.rb'
+    - 'config/**/*.rb'
+    - 'lib/**/*.rb'
+    - 'spec/**/*.rb'
+    - 'db/seeds.rb'
+
+  Exclude:
+    - 'bin/*'
+    - 'db/schema.rb'
+    - 'db/migrate/*'
+    - 'log/**/*'
+    - 'node_modules/**/*'
+    - 'public/**/*'
+    - 'script/**/*'
+    - 'vendor/**/*'
+    - 'tmp/**/*'
+    - '.git/**/*'
+    - 'app/views/**/*'
+    - 'app/workers/**/*'
+
+Layout/IndentationConsistency:
+  EnforcedStyle: 'indented_internal_methods'
+
+Layout/LineLength:
+  Enabled: false
+
+Metrics/MethodLength:
+  Max: 25
+
+Metrics/AbcSize:
+  Max: 30
+
+Metrics/BlockLength:
+  Max: 100
+  Exclude:
+    - 'Guardfile'
+    - 'config/environments/*'
+    - 'spec/**/*'
+
+Metrics/ClassLength:
+  Exclude:
+    - 'db/seeds.rb'
+  Max: 150
+
+Metrics/ModuleLength:
+  Max: 150
+
+Naming/FileName:
+  Exclude:
+    - 'Gemfile'
+    - 'Guardfile'
+    - 'Rakefile'
+
+Style/Documentation:
+  Enabled: false
+
+Style/StringLiterals:
+  Enabled: true
+  EnforcedStyle: single_quotes
