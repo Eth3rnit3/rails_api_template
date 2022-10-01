@@ -14,8 +14,8 @@ end
 
 def init_development_gems!
   gem_group :development do
-    gem 'annotate' # rails g annotate:install https://github.com/ctran/annotate_models
-    gem 'letter_opener' # https://github.com/ryanb/letter_opener
+    gem 'annotate'
+    gem 'letter_opener'
     gem 'rubocop-rails', require: false
   end
 end
@@ -25,6 +25,7 @@ def init_test_gems!
     gem 'factory_bot_rails'
     gem 'rspec-rails'
     gem 'webmock'
+    gem 'simplecov', require: false
   end
 end
 

@@ -15,4 +15,6 @@ def config_development!
       end
     end
   ", env: 'development'
+  environment 'config.action_mailer.delivery_method = :letter_opener'
+  environment 'config.action_mailer.perform_deliveries = true'
 end
