@@ -6,14 +6,23 @@ def source_paths
   [__dir__, "#{__dir__}/vendor", "#{__dir__}/templates"]
 end
 
-# Setup Gems
+# Setup gems
 init_gems!
 
-# Setup Initializers
+# Setup initializers
 init_initializers!
+
+# Run dependencies installers
+run_commands!
+
+# Run dependencies generators
+run_generators!
+
+# Configure environments
+config_environments!
 
 # Copy files
 copy_files!
 
-# Config Environment
-# environment 'config.action_mailer.default_url_options = {host: "http://yourwebsite.example.com"}', env: 'production'
+# Final setup
+run_final_commands!

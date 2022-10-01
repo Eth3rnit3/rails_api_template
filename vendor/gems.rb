@@ -9,6 +9,7 @@ private
 
 def init_global_gems!
   gem 'devise-jwt'
+  gem 'rack-cors'
 end
 
 def init_development_gems!
@@ -23,11 +24,13 @@ def init_test_gems!
   gem_group :test do
     gem 'factory_bot_rails'
     gem 'rspec-rails'
+    gem 'webmock'
   end
 end
 
 def init_development_and_test_gems!
   gem_group :development, :test do
+    gem 'faker'
     gem 'byebug'
   end
 end
