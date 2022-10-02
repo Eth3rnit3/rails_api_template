@@ -12,7 +12,6 @@ def copy_config!
   copy_file 'README_template.md', 'README.md', force: true
   copy_file 'db/seeds.rb', force: true
   copy_file 'config/routes.rb', force: true
-  copy_file 'config/initializers/devise.rb', force: true
 end
 
 def copy_controllers!
@@ -30,7 +29,6 @@ def copy_spec_config!
   copy_file 'spec/support/database_cleaner.rb'
   copy_file 'spec/support/factory_bot.rb'
   copy_file 'spec/rails_helper.rb', force: true
-  copy_file 'spec/factories/users.rb'
 end
 
 def copy_rubocop_config!

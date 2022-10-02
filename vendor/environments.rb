@@ -15,6 +15,8 @@ def config_development!
       end
     end
   ", env: 'development'
-  environment 'config.action_mailer.delivery_method = :letter_opener'
-  environment 'config.action_mailer.perform_deliveries = true'
+  environment 'config.action_mailer.delivery_method = :letter_opener', env: 'development'
+  environment 'config.action_mailer.perform_deliveries = true', env: 'development'
+  environment "config.factory_bot.definition_file_paths = ['spec/factories']", env: 'development'
+  environment "config.factory_bot.definition_file_paths = ['spec/factories']", env: 'test'
 end

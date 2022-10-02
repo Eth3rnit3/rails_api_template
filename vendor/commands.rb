@@ -10,14 +10,14 @@ def run_final_commands!
 
   setup_jwt_secret!
 
-  git :init
-  git add: "."
-  git commit: "-a -m 'Initial commit'"
-
   rails_command("db:drop")
   rails_command("db:create")
   rails_command("db:migrate")
   rails_command("db:seed")
+
+  git :init
+  git add: "."
+  git commit: "-a -m 'Initial commit'"
 end
 
 private

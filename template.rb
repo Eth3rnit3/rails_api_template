@@ -23,5 +23,8 @@ config_environments!
 # Copy files
 copy_files!
 
+# Add config to generated files
+update_initializers_config!
+
 # Final setup
 run_final_commands!

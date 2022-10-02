@@ -22,8 +22,6 @@ end
 
 def init_test_gems!
   gem_group :test do
-    gem 'factory_bot_rails'
-    gem 'rspec-rails'
     gem 'webmock'
     gem 'simplecov', require: false
     gem 'database_cleaner', require: false
@@ -32,6 +30,8 @@ end
 
 def init_development_and_test_gems!
   gem_group :development, :test do
+    gem 'factory_bot_rails'
+    gem 'rspec-rails'
     gem 'faker'
     gem 'byebug'
   end

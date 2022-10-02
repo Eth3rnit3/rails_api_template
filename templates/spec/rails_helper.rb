@@ -8,9 +8,9 @@ require_relative '../config/environment'
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 
 require 'rspec/rails'
-require 'database_cleaner'
 
 if ENV['RAILS_ENV'] == 'test'
+  require 'database_cleaner'
   require 'simplecov'
   SimpleCov.start 'rails'
   puts 'required simplecov'

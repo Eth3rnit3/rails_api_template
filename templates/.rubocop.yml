@@ -31,9 +31,7 @@ AllCops:
     - '.git/**/*'
     - 'app/views/**/*'
     - 'app/workers/**/*'
-
-Bundler/OrderedGems:
-  Enabled: false
+    - 'spec/factories/*'
 
 Layout/IndentationConsistency:
   EnforcedStyle: 'indented_internal_methods'
