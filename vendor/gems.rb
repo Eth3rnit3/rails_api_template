@@ -9,6 +9,7 @@ private
 
 def init_global_gems!
   gem 'devise-jwt'
+  gem 'pundit'
   gem 'rack-cors'
 end
 

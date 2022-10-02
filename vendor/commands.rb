@@ -1,6 +1,7 @@
 def run_commands!
   run_annotate_install!
   run_devise_install!
+  run_pundit_install!
   run_active_storage_install!
   run_rspec_install!
 end
@@ -38,6 +39,10 @@ def setup_jwt_secret!
   value = "jwt_secret: #{(0...64).map { ([65, 97].sample + rand(26)).chr }.push(rand(99)).join}"
   command = "EDITOR='echo \"#{value}\" >> ' rails credentials:edit"
   run command
+end
+
+def run_pundit_install!
+  run 'rails g pundit:install'
 end
 
 def run_active_storage_install!

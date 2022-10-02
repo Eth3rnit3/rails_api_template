@@ -3,6 +3,7 @@ https://github.com/Eth3rnit3/rails_api_template
 
 ## Dependencies
 - [Devise-jwt](https://github.com/waiting-for-dev/devise-jwt)
+- [Pundit](https://github.com/varvet/pundit)
 - [Rack-cors](https://github.com/cyu/rack-cors)
 - [Annotate](https://github.com/ctran/annotate_models)
 - [Letter Opener](https://github.com/ryanb/letter_opener)

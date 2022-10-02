@@ -1,8 +1,11 @@
 # What does it do?
 This repos is related to a Ruby on rails template, it add dependencies and configuration to make your rails api projet ready to code. No additional configuration is required
 
+**build with ruby `3.0.2` and rails `7.0.4`**
+
 ## What are the pre-configured dependencies?
 - [Devise-jwt](https://github.com/waiting-for-dev/devise-jwt) for api authentification based on Jwt token
+- [Pundit](https://github.com/varvet/pundit) to manage authorizations
 - [Rack-cors](https://github.com/cyu/rack-cors) to avoid cors error (development setup only)
 - [Annotate](https://github.com/ctran/annotate_models) to add sql column on models, specs and factories
 - [Letter Opener](https://github.com/ryanb/letter_opener) to preview mail in development
