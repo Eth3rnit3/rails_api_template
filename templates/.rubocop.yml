@@ -31,13 +31,16 @@ AllCops:
     - '.git/**/*'
     - 'app/views/**/*'
     - 'app/workers/**/*'
-    - 'spec/factories/*'
 
 Layout/IndentationConsistency:
   EnforcedStyle: 'indented_internal_methods'
-
+    
 Layout/LineLength:
   Enabled: false
+    
+Lint/EmptyBlock:
+  Exclude:
+  - 'spec/factories/*'
 
 Metrics/MethodLength:
   Max: 25
