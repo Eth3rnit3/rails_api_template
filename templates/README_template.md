@@ -68,6 +68,7 @@ RSpec.describe MyController, type: :controller do
     expect(json[:data]).not_to be_blank
   end
 end
+````
 
 ### Authentification
 In spec files with controllers type, you can simply use `sign_in` helper
@@ -83,4 +84,4 @@ RSpec.describe MyController, type: :controller do
     expect(response).to be_sucessfull
   end
 end
-````
+```
