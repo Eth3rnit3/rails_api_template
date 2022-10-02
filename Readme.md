@@ -12,6 +12,7 @@ This repos is related to a Ruby on rails template, it add dependencies and confi
 - [Rubocop Rails](https://github.com/rubocop/rubocop-rails) linter and config for rails project
 - [FactoryBot Rails](https://github.com/thoughtbot/factory_bot_rails) great spec fixtures with config
 - [Rspec Rails](https://github.com/rspec/rspec-rails) great testing framework with config
+- [Database Cleaner](https://github.com/DatabaseCleaner/database_cleaner) to avoid data conflict in test
 - [Webmock](https://github.com/bblimke/webmock) to mock api requests during test
 - [Siplecov](https://github.com/simplecov-ruby/simplecov) for spec coverage metrics
 - [Faker](https://github.com/faker-ruby/faker) for random test data

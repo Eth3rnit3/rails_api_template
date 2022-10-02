@@ -10,6 +10,7 @@ https://github.com/Eth3rnit3/rails_api_template
 - [Rubocop Rails](https://github.com/rubocop/rubocop-rails)
 - [FactoryBot Rails](https://github.com/thoughtbot/factory_bot_rails)
 - [Rspec Rails](https://github.com/rspec/rspec-rails)
+- [Database Cleaner](https://github.com/DatabaseCleaner/database_cleaner)
 - [Webmock](https://github.com/bblimke/webmock)
 - [Siplecov](https://github.com/simplecov-ruby/simplecov)
 - [Faker](https://github.com/faker-ruby/faker)
@@ -56,6 +57,30 @@ curl -X GET http://localhost:3000/api/health -H "Authorization: Bearer eyJhbGciO
 # {"status":"private"}
 ```
 
+## Rspec
+### Api/Response
+In spec files with controllers type, you can simply use `json` helper
+```ruby
+RSpec.describe MyController, type: :controller do
+  it 'returns data' do
+    get :index
 
+    expect(json[:data]).not_to be_blank
+  end
+end
 
+### Authentification
+In spec files with controllers type, you can simply use `sign_in` helper
+```ruby
+RSpec.describe MyController, type: :controller do
+  let(:user) { create(:user) }
 
+  before { sign_in(user) }
+
+  it 'returns success' do
+    get :index
+
+    expect(response).to be_sucessfull
+  end
+end
+````
