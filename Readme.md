@@ -22,5 +22,28 @@ This repos is related to a Ruby on rails template, it add dependencies and confi
 # Usage
 ```shell
 git clone git@github.com:Eth3rnit3/rails_api_template.git
-rails new my_app -T --database=postgresql --api -m ./rails_api_template/template.rb
+rails new my_app -T -J --database=postgresql --api -m ./rails_api_template/template.rb
+cd my_app
+
+# Without docker
+rails s
+
+# With docker
+docker-compose up -d --build && docker-compose logs -f --tail=100
 ```
+
+# Features
+## Dockerization
+Template will ask you to dockerize app, it will configure docker image for api, worker and database (if db adapter is compatible with this template).
+
+|Adapter|Compatible|Version|
+|postgresql|✅|12.1|
+|mysql|No|-|
+|postgresql|No|-|
+|sqlite3|✅|-|
+|oracle|No|-|
+|sqlserver|No|-|
+|jdbcmysql|No|-|
+|jdbcsqlite3|No|-|
+|jdbcpostgresql|No|-|
+|jdbc|No|-|

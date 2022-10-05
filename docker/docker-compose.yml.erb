@@ -2,14 +2,14 @@ version: '3.4'
 
 x-app: &default-app
   build:
-    context: "."
+    context: .
     args:
       - "RAILS_ENV=${RAILS_ENV:-development}"
   depends_on:
     - <%="#{app_name}-database"%>
     - <%="#{app_name}-redis"%>
   env_file:
-    - ".env"
+    - .env
   restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
   stop_grace_period: "3s"
   stdin_open: true
@@ -23,7 +23,7 @@ services:
     container_name: <%="#{app_name}-database"%>
     image: postgres:12.1
     env_file:
-      - ".env"
+      - .env
     restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
     stop_grace_period: "3s"
     volumes:
@@ -31,26 +31,26 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
   <%="#{app_name}-redis"%>:
+    container_name: <%="#{app_name}-redis"%>
+    image: redis:6.2.6-bullseye
     env_file:
-      - ".env"
-    image: "redis:6.2.6-bullseye"
+      - .env
     restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
     stop_grace_period: "3s"
     volumes:
       - "<%="#{app_name}_redis"%>:/data"
 
-
   <%="#{app_name}-api"%>:
     <<: *default-app
     container_name: <%="#{app_name}_api"%>
+    command: api
     ports:
-      - "3010:3000"
+      - "3000:3000"
 
   <%="#{app_name}-worker"%>:
     <<: *default-app
     container_name: <%="#{app_name}-worker"%>
-    command: "bundle exec sidekiq -C config/sidekiq.yml"
-    entrypoint: []
+    command: worker
 
 volumes:
   <%="#{app_name}_data"%>:

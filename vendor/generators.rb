@@ -5,6 +5,6 @@ end
 private
 
 def run_devise_generator!
-  generate(:devise, 'User')
-  generate(:migration, 'AddJtiToUser', 'jti:string:index')
+  generate :devise, 'User'
+  generate :migration, 'AddJtiToUser', 'jti:string:index'
 end

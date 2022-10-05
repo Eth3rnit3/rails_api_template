@@ -20,10 +20,12 @@ def run_rubocop_autocorrect!
 end
 
 def run_db_commands!
-  rails_command("db:drop")
-  rails_command("db:create")
-  rails_command("db:migrate")
-  rails_command("db:seed")
+  return if @dockerized
+
+  rails_command 'db:drop'
+  rails_command 'db:create'
+  rails_command 'db:migrate'
+  rails_command 'db:seed'
 end
 
 def run_git_commands!
