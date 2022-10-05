@@ -36,14 +36,14 @@ docker-compose up -d --build && docker-compose logs -f --tail=100
 ## Dockerization
 Template will ask you to dockerize app, it will configure docker image for api, worker and database (if db adapter is compatible with this template).
 
-|Adapter|Compatible|Version|
-|postgresql|✅|12.1|
-|mysql|No|-|
-|postgresql|No|-|
-|sqlite3|✅|-|
-|oracle|No|-|
-|sqlserver|No|-|
-|jdbcmysql|No|-|
-|jdbcsqlite3|No|-|
-|jdbcpostgresql|No|-|
-|jdbc|No|-|
+| Adapter        | Compatible | Version |
+|----------------|------------|---------|
+| postgresql     | ✅          | 12.1    |
+| mysql          | ❌          | -       |
+| sqlite3        | ✅          | 3       |
+| oracle         | ❌          | -       |
+| sqlserver      | ❌          | -       |
+| jdbcmysql      | ❌          | -       |
+| jdbcsqlite3    | ❌          | -       |
+| jdbcpostgresql | ❌          | -       |
+| jdbc           | ❌          | -       |
