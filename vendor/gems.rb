@@ -3,9 +3,15 @@ def init_gems!
   init_development_gems!
   init_test_gems!
   init_development_and_test_gems!
+
+  run_bundle_install!
 end
 
 private
+
+def run_bundle_install!
+  run 'bundle install'
+end
 
 def init_global_gems!
   gem 'devise-jwt'
