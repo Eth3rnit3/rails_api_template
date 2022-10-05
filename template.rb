@@ -1,30 +1,36 @@
+require 'byebug'
+
 # require dependencies
 Dir["#{__dir__}/vendor/*.rb"].sort.each { |f| require f }
 
 def source_paths
-  [__dir__, "#{__dir__}/vendor", "#{__dir__}/templates"]
+  [__dir__, "#{__dir__}/vendor", "#{__dir__}/templates", "#{__dir__}/docker"]
 end
 
-# Setup gems
-init_gems!
+run_docker_commands!
 
-# Setup initializers
-init_initializers!
+# # Setup gems
+# init_gems!
 
-# Run dependencies installers
-run_commands!
+# # Setup initializers
+# init_initializers!
 
-# Run dependencies generators
-run_generators!
+# # Run dependencies installers
+# run_commands!
 
-# Configure environments
-config_environments!
+# # Run dependencies generators
+# run_generators!
 
-# Copy files
-copy_files!
+# # Configure environments
+# config_environments!
 
-# Add config to generated files
-update_initializers_config!
+# # Copy files
+# copy_files!
 
-# Final setup
-run_final_commands!
+# # Add config to generated files
+# update_initializers_config!
+
+# # Final setup
+# run_final_commands!
+
+# run_docker_commands!
