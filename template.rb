@@ -1,35 +1,43 @@
 require 'byebug'
-
-# require dependencies
-Dir["#{__dir__}/vendor/*.rb"].sort.each { |f| require f }
-
+# byebug
 def source_paths
   [__dir__, "#{__dir__}/vendor", "#{__dir__}/templates", "#{__dir__}/docker"]
 end
 
-# # Setup gems
-init_gems!
+# require dependencies
+Dir["#{__dir__}/vendor/**/*.rb"].sort.each { |f| require f }
 
-# # Setup initializers
-init_initializers!
+# Setup options
+opt = ::EtrTemplate::Base.configure(self).merge(options.transform_keys(&:to_sym))
 
-# # Run dependencies installers
-run_commands!
+# Install and configure template data
+::EtrTemplate::Base.install(opt)
 
-# # Run dependencies generators
-run_generators!
+# Install gems
+::EtrTemplate::Gem.install(opt)
 
-# # Configure environments
-config_environments!
+# Cconfigure gems
+::EtrTemplate::Gems::Annotate.install(opt)
+::EtrTemplate::Gems::Cors.install(opt)
+::EtrTemplate::Gems::DatabaseCleaner.install(opt)
+::EtrTemplate::Gems::DeviseJwt.install(opt)
+::EtrTemplate::Gems::FactoryBot.install(opt)
+::EtrTemplate::Gems::LetterOpener.install(opt)
+::EtrTemplate::Gems::Pundit.install(opt)
+::EtrTemplate::Gems::RSpec.install(opt)
+::EtrTemplate::Gems::Rubocop.install(opt)
 
-# # Copy files
-copy_files!
+# Dockerize
+::EtrTemplate::Docker.install(opt)
 
-# # Add config to generated files
-update_initializers_config!
-
-# Ask for docker and install
-run_docker_commands!
-
-# # Final setup
-run_final_commands!
+# Run after install callbacks
+::EtrTemplate::Base.after_install(opt)
+::EtrTemplate::Gems::Annotate.after_install(opt)
+::EtrTemplate::Gems::Cors.after_install(opt)
+::EtrTemplate::Gems::DatabaseCleaner.after_install(opt)
+::EtrTemplate::Gems::DeviseJwt.after_install(opt)
+::EtrTemplate::Gems::FactoryBot.after_install(opt)
+::EtrTemplate::Gems::LetterOpener.after_install(opt)
+::EtrTemplate::Gems::Pundit.after_install(opt)
+::EtrTemplate::Gems::RSpec.after_install(opt)
+::EtrTemplate::Gems::Rubocop.after_install(opt)
