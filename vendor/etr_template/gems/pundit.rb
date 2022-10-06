@@ -5,12 +5,10 @@ require_relative 'base'
 module EtrTemplate
   module Gems
     class Pundit < Base
-      class << self
-        private
+      private
 
-        def run_gem_install
-          run 'rails g pundit:install'
-        end
+      def run_gem_install
+        g.run 'rails g pundit:install'
       end
     end
   end

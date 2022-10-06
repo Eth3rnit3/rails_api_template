@@ -12,7 +12,7 @@ module EtrTemplate
 
         {
           generator: generator,
-          docker: install_docker.match?(EtrTemplate::Helpers::CONFIRM_REGEX),
+          docker: install_docker.match?(EtrTemplate::Helpers::CONFIRM_REGEX)
         }
       end
 

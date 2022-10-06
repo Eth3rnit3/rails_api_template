@@ -16,28 +16,38 @@ opt = ::EtrTemplate::Base.configure(self).merge(options.transform_keys(&:to_sym)
 # Install gems
 ::EtrTemplate::Gem.install(opt)
 
-# Cconfigure gems
-::EtrTemplate::Gems::Annotate.install(opt)
-::EtrTemplate::Gems::Cors.install(opt)
-::EtrTemplate::Gems::DatabaseCleaner.install(opt)
-::EtrTemplate::Gems::DeviseJwt.install(opt)
-::EtrTemplate::Gems::FactoryBot.install(opt)
-::EtrTemplate::Gems::LetterOpener.install(opt)
-::EtrTemplate::Gems::Pundit.install(opt)
-::EtrTemplate::Gems::RSpec.install(opt)
-::EtrTemplate::Gems::Rubocop.install(opt)
+# Init
+annotate          = ::EtrTemplate::Gems::Annotate.new(opt)
+cors              = ::EtrTemplate::Gems::Cors.new(opt)
+database_cleaner  = ::EtrTemplate::Gems::DatabaseCleaner.new(opt)
+devise_jwt        = ::EtrTemplate::Gems::DeviseJwt.new(opt)
+factory_bot       = ::EtrTemplate::Gems::FactoryBot.new(opt)
+letter_opener     = ::EtrTemplate::Gems::LetterOpener.new(opt)
+pundit            = ::EtrTemplate::Gems::Pundit.new(opt)
+rspec             = ::EtrTemplate::Gems::RSpec.new(opt)
+rubocop           = ::EtrTemplate::Gems::Rubocop.new(opt)
+
+# Configure gems
+annotate.install
+cors.install
+database_cleaner.install
+devise_jwt.install
+factory_bot.install
+letter_opener.install
+pundit.install
+rspec.install
+rubocop.install
 
 # Dockerize
 ::EtrTemplate::Docker.install(opt)
 
 # Run after install callbacks
-::EtrTemplate::Base.after_install(opt)
-::EtrTemplate::Gems::Annotate.after_install(opt)
-::EtrTemplate::Gems::Cors.after_install(opt)
-::EtrTemplate::Gems::DatabaseCleaner.after_install(opt)
-::EtrTemplate::Gems::DeviseJwt.after_install(opt)
-::EtrTemplate::Gems::FactoryBot.after_install(opt)
-::EtrTemplate::Gems::LetterOpener.after_install(opt)
-::EtrTemplate::Gems::Pundit.after_install(opt)
-::EtrTemplate::Gems::RSpec.after_install(opt)
-::EtrTemplate::Gems::Rubocop.after_install(opt)
+annotate.after_install
+cors.after_install
+database_cleaner.after_install
+devise_jwt.after_install
+factory_bot.after_install
+letter_opener.after_install
+pundit.after_install
+rspec.after_install
+rubocop.after_install

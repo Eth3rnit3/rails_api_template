@@ -5,14 +5,12 @@ require_relative 'base'
 module EtrTemplate
   module Gems
     class DatabaseCleaner < Base
-      class << self
-        def install(opt = {}); end
+      def install; end
 
-        private
+      private
 
-        def copy_files_from_template
-          copy_file 'spec/support/database_cleaner.rb'
-        end
+      def copy_files_from_template
+        g.copy_file 'spec/support/database_cleaner.rb'
       end
     end
   end

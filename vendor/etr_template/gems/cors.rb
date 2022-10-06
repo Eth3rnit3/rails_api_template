@@ -5,15 +5,14 @@ require_relative 'base'
 module EtrTemplate
   module Gems
     class Cors < Base
-      class << self
-        def install(_opt = {})
-          config_environments
-        end
+      def install
+        config_environments
+      end
 
-        private
+      private
 
-        def config_environments
-          environment "
+      def config_environments
+        g.environment "
             config.middleware.insert_before 0, Rack::Cors do
               allow do
                 origins '*'
@@ -21,7 +20,6 @@ module EtrTemplate
               end
             end
           ", env: 'development'
-        end
       end
     end
   end

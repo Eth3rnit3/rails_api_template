@@ -5,17 +5,13 @@ require_relative 'base'
 module EtrTemplate
   module Gems
     class MyGem < Base
-      class << self
-        def install(opt = {})
-          super(opt)
-        end
+      def install; end
 
-        def after_install(opt = {}); end
+      def after_install; end
 
-        private
+      private
 
-        def run_gem_intall; end
-      end
+      def run_gem_intall; end
     end
   end
 end
