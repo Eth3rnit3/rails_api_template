@@ -20,7 +20,7 @@ x-app: &default-app
 
 services:
   <%= render_partial('services/postgresql.yml.erb', binding) if postgresql? %>
-
+  <%= render_partial('services/mysql.yml.erb', binding) if mysql? %>
   <%="#{app_name}-redis"%>:
     container_name: <%="#{app_name}-redis"%>
     image: redis:6.2.6-bullseye
@@ -44,6 +44,6 @@ services:
     command: worker
 
 volumes:
-  <%="#{app_name}_data" if postgresql? %>:
-  <%="#{app_name}_bundler_gems"%>:
-  <%="#{app_name}_redis"%>:
+  <%="#{app_name}_data:" if db_compatible? %>
+  <%="#{app_name}_bundler_gems:"%>
+  <%="#{app_name}_redis:"%>
