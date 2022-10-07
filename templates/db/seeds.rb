@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.logger.info { 'Start seeding!' }
 users = [
   { email: 'test1234@gmail.com', password: 'test1234' }
