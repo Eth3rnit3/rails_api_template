@@ -28,29 +28,29 @@ rspec             = ::EtrTemplate::Gems::RSpec.new(opt)
 rubocop           = ::EtrTemplate::Gems::Rubocop.new(opt)
 
 # Configure gems
-# devise_jwt.install
-# pundit.install
-# cors.install
-# annotate.install
-# letter_opener.install
-# factory_bot.install
-# rspec.install
-# database_cleaner.install
-# rubocop.install
+devise_jwt.install
+pundit.install
+cors.install
+annotate.install
+letter_opener.install
+factory_bot.install
+rspec.install
+database_cleaner.install
+rubocop.install
 
 # Dockerize
 ::EtrTemplate::Docker.install(opt)
 
 # # After install and configure template data
-# ::EtrTemplate::Base.after_install(opt)
+::EtrTemplate::Base.after_install(opt)
 
 # # Run after install callbacks
-# devise_jwt.after_install
-# pundit.after_install
-# cors.after_install
-# annotate.after_install
-# letter_opener.after_install
-# factory_bot.after_install
-# rspec.after_install
-# database_cleaner.after_install
-# rubocop.after_install
+devise_jwt.after_install
+pundit.after_install
+cors.after_install
+annotate.after_install
+letter_opener.after_install
+factory_bot.after_install
+rspec.after_install
+database_cleaner.after_install
+rubocop.after_install
