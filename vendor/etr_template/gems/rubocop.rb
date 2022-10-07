@@ -6,10 +6,14 @@ module EtrTemplate
   module Gems
     class Rubocop < Base
       def install
+        return unless install?
+
         copy_files_from_template
       end
 
       def after_install
+        return unless install?
+
         super
         run_rubocop_autocorrect
       end

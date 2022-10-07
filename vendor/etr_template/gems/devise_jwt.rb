@@ -6,6 +6,8 @@ module EtrTemplate
   module Gems
     class DeviseJwt < Base
       def install
+        return unless install?
+
         super
         run_gem_generators
         copy_files_from_template
@@ -13,8 +15,6 @@ module EtrTemplate
         init_sessions_store
         setup_jwt_secret
       end
-
-      def after_install; end
 
       private
 
@@ -44,7 +44,9 @@ module EtrTemplate
       end
 
       def setup_jwt_secret
-        value = "jwt_secret: #{(0...64).map { ([65, 97].sample + rand(26)).chr }.push(rand(99)).join}"
+        value = "jwt_secret: #{(0...64).map do
+                                 ([65, 97].sample + rand(26)).chr
+                               end.push(rand(99)).join}"
         command = "EDITOR='echo \"#{value}\" >> ' rails credentials:edit"
         g.run command
       end

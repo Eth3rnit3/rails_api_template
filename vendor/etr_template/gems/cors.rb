@@ -6,6 +6,8 @@ module EtrTemplate
   module Gems
     class Cors < Base
       def install
+        return unless install?
+
         config_environments
       end
 

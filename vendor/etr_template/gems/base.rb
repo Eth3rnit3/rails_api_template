@@ -3,17 +3,25 @@
 module EtrTemplate
   module Gems
     class Base
-      attr_reader :g
+      attr_reader :opt, :g, :gem_key
 
       def initialize(opt = {})
-        @g = opt[:generator]
+        @opt    = opt
+        @g      = opt[:generator]
+        @gem_key = self.class.name.demodulize.downcase.to_sym
       end
 
       def install
+        return unless install?
+
         run_gem_install
       end
 
       def after_install; end
+
+      def install?
+        opt[gem_key]
+      end
 
       private
 

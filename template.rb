@@ -1,5 +1,3 @@
-require 'byebug'
-# byebug
 def source_paths
   [__dir__, "#{__dir__}/vendor", "#{__dir__}/templates", "#{__dir__}/docker"]
 end
@@ -7,8 +5,24 @@ end
 # require dependencies
 Dir["#{__dir__}/vendor/**/*.rb"].sort.each { |f| require f }
 
+# Configurable gems
+def configurable_gems
+  @configurable_gems ||= %w[
+    Annotate
+    Cors
+    DatabaseCleaner
+    DeviseJwt
+    FactoryBot
+    LetterOpener
+    Pundit
+    RSpec
+    Rubocop
+  ]
+end
+
 # Setup options
-opt = ::EtrTemplate::Base.configure(self).merge(options.transform_keys(&:to_sym))
+opt = ::EtrTemplate::Base.configure(self, configurable_gems)
+                         .merge(options.transform_keys(&:to_sym))
 
 # Install and configure template data
 ::EtrTemplate::Base.install(opt)
@@ -17,26 +31,10 @@ opt = ::EtrTemplate::Base.configure(self).merge(options.transform_keys(&:to_sym)
 ::EtrTemplate::Gem.install(opt)
 
 # Init
-annotate          = ::EtrTemplate::Gems::Annotate.new(opt)
-cors              = ::EtrTemplate::Gems::Cors.new(opt)
-database_cleaner  = ::EtrTemplate::Gems::DatabaseCleaner.new(opt)
-devise_jwt        = ::EtrTemplate::Gems::DeviseJwt.new(opt)
-factory_bot       = ::EtrTemplate::Gems::FactoryBot.new(opt)
-letter_opener     = ::EtrTemplate::Gems::LetterOpener.new(opt)
-pundit            = ::EtrTemplate::Gems::Pundit.new(opt)
-rspec             = ::EtrTemplate::Gems::RSpec.new(opt)
-rubocop           = ::EtrTemplate::Gems::Rubocop.new(opt)
+configurable_gems.map! { |conf_g| "::EtrTemplate::Gems::#{conf_g}".constantize.new(opt) }
 
 # Configure gems
-devise_jwt.install
-pundit.install
-cors.install
-annotate.install
-letter_opener.install
-factory_bot.install
-rspec.install
-database_cleaner.install
-rubocop.install
+configurable_gems.each(&:install)
 
 # Dockerize
 ::EtrTemplate::Docker.install(opt)
@@ -45,12 +43,4 @@ rubocop.install
 ::EtrTemplate::Base.after_install(opt)
 
 # # Run after install callbacks
-devise_jwt.after_install
-pundit.after_install
-cors.after_install
-annotate.after_install
-letter_opener.after_install
-factory_bot.after_install
-rspec.after_install
-database_cleaner.after_install
-rubocop.after_install
+configurable_gems.each(&:after_install)
