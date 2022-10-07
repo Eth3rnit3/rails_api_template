@@ -41,6 +41,9 @@ rubocop.install
 # Dockerize
 ::EtrTemplate::Docker.install(opt)
 
+# After install and configure template data
+::EtrTemplate::Base.after_install(opt)
+
 # Run after install callbacks
 devise_jwt.after_install
 pundit.after_install
