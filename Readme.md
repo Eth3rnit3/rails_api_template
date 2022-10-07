@@ -39,7 +39,7 @@ Template will ask you to dockerize app, it will configure docker image for api, 
 | Adapter        | Compatible | Version |
 |----------------|------------|---------|
 | postgresql     | ✅          | 12.1    |
-| mysql          | ❌          | -       |
+| mysql          | ✅          | 5.7     |
 | sqlite3        | ✅          | 3       |
 | oracle         | ❌          | -       |
 | sqlserver      | ❌          | -       |
