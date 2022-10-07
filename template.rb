@@ -22,7 +22,7 @@ end
 
 # Setup options
 opt = ::EtrTemplate::Base.configure(self, configurable_gems)
-                         .merge(options.transform_keys(&:to_sym))
+                         .merge(sym_options)
 
 # Install and configure template data
 ::EtrTemplate::Base.install(opt)
