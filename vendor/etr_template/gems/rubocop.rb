@@ -6,7 +6,6 @@ module EtrTemplate
   module Gems
     class Rubocop < Base
       def install
-        super
         copy_files_from_template
       end
 

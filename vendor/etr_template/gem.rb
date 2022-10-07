@@ -3,7 +3,8 @@
 module EtrTemplate
   class Gem
     class << self
-      def install(generator)
+      def install(opt = {})
+        generator = opt[:generator]
         init_global_gems(generator)
         init_development_gems(generator)
         init_test_gems(generator)
@@ -25,7 +26,7 @@ module EtrTemplate
       end
 
       def init_development_gems(generator)
-        gem_group :development do
+        generator.gem_group :development do
           generator.gem 'annotate'
           generator.gem 'letter_opener'
           generator.gem 'rubocop-rails', require: false
@@ -33,7 +34,7 @@ module EtrTemplate
       end
 
       def init_test_gems(generator)
-        gem_group :test do
+        generator.gem_group :test do
           generator.gem 'database_cleaner', require: false
           generator.gem 'simplecov', require: false
           generator.gem 'webmock'
@@ -41,7 +42,7 @@ module EtrTemplate
       end
 
       def init_development_and_test_gems(generator)
-        gem_group :development, :test do
+        generator.gem_group :development, :test do
           generator.gem 'byebug'
           generator.gem 'factory_bot_rails'
           generator.gem 'faker'

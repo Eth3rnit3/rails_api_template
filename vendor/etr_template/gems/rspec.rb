@@ -6,7 +6,7 @@ module EtrTemplate
   module Gems
     class RSpec < Base
       def install
-        super(opt)
+        super
         copy_files_from_template
       end
 

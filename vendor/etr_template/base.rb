@@ -20,11 +20,11 @@ module EtrTemplate
         generator = opt[:generator]
         run_active_storage_install(generator)
         config_environments(generator)
-        copy_files_from_template(generator)
       end
 
       def after_install(opt = {})
         generator = opt[:generator]
+        copy_files_from_template(generator)
         run_db_commands(generator) unless opt[:docker]
         run_git_commands(generator)
       end

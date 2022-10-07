@@ -6,21 +6,19 @@ module EtrTemplate
   module Gems
     class DeviseJwt < Base
       def install
-        super(opt)
+        super
         run_gem_generators
         copy_files_from_template
         add_jwt_config_to_devise
         init_sessions_store
-      end
-
-      def after_install
-        super(opt)
         setup_jwt_secret
       end
 
+      def after_install; end
+
       private
 
-      def run_gem_intall
+      def run_gem_install
         g.run 'rails generate devise:install'
       end
 

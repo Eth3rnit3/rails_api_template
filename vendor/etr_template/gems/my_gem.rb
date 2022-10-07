@@ -11,7 +11,7 @@ module EtrTemplate
 
       private
 
-      def run_gem_intall; end
+      def run_gem_install; end
     end
   end
 end
