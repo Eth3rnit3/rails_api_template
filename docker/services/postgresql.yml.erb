@@ -1,0 +1,10 @@
+<%="#{app_name}-database"%>:
+    container_name: <%="#{app_name}-database"%>
+    image: postgres:12.1
+    env_file:
+      - .env
+    restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
+    stop_grace_period: "3s"
+    volumes:
+      - <%="#{app_name}_data"%>:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql

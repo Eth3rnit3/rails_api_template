@@ -7,7 +7,7 @@ then
         rm tmp/pids/server.pid
     fi
     bundle check || bundle install
-    bin/rails db:migrate 2>/dev/null || bin/rails db:setup
+    bin/rails db:migrate 2>/dev/null || bin/rails db:prepare
     
     if [[ "$RAILS_ENV" == 'production' ]]; then
         echo 'Start production server'

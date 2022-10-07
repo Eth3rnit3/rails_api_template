@@ -1,10 +1,6 @@
-module Docker
-  DB_ADAPTERS = %w[postgresql sqlite sqlite3].freeze
-end
-
 def run_docker_commands!
   install_docker = ask 'Dockerize application? y/N'
-  dockerize! if install_docker.match? /y|Y|o|O|yes|Yes|YES|oui|Oui|OUI/
+  dockerize! if install_docker.match? Eth3rnit3Template::Helper::CONFIRM_REGEX
 end
 
 private
@@ -21,7 +17,7 @@ def dockerize!
 end
 
 def configure_database!
-  return unless Docker::DB_ADAPTERS.include? options['database']
+  return unless db_compatible?
 
   copy_file 'config/database.yml', force: true
   template 'init.sql.erb', 'init.sql'

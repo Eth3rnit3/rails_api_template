@@ -1,35 +1,56 @@
 require 'byebug'
-
-# require dependencies
-Dir["#{__dir__}/vendor/*.rb"].sort.each { |f| require f }
-
+# byebug
 def source_paths
   [__dir__, "#{__dir__}/vendor", "#{__dir__}/templates", "#{__dir__}/docker"]
 end
 
-# # Setup gems
-init_gems!
+# require dependencies
+Dir["#{__dir__}/vendor/**/*.rb"].sort.each { |f| require f }
 
-# # Setup initializers
-init_initializers!
+# Setup options
+opt = ::EtrTemplate::Base.configure(self).merge(options.transform_keys(&:to_sym))
 
-# # Run dependencies installers
-run_commands!
+# Install and configure template data
+::EtrTemplate::Base.install(opt)
 
-# # Run dependencies generators
-run_generators!
+# Install gems
+::EtrTemplate::Gem.install(opt)
 
-# # Configure environments
-config_environments!
+# Init
+annotate          = ::EtrTemplate::Gems::Annotate.new(opt)
+cors              = ::EtrTemplate::Gems::Cors.new(opt)
+database_cleaner  = ::EtrTemplate::Gems::DatabaseCleaner.new(opt)
+devise_jwt        = ::EtrTemplate::Gems::DeviseJwt.new(opt)
+factory_bot       = ::EtrTemplate::Gems::FactoryBot.new(opt)
+letter_opener     = ::EtrTemplate::Gems::LetterOpener.new(opt)
+pundit            = ::EtrTemplate::Gems::Pundit.new(opt)
+rspec             = ::EtrTemplate::Gems::RSpec.new(opt)
+rubocop           = ::EtrTemplate::Gems::Rubocop.new(opt)
 
-# # Copy files
-copy_files!
+# Configure gems
+devise_jwt.install
+pundit.install
+cors.install
+annotate.install
+letter_opener.install
+factory_bot.install
+rspec.install
+database_cleaner.install
+rubocop.install
 
-# # Add config to generated files
-update_initializers_config!
+# Dockerize
+::EtrTemplate::Docker.install(opt)
 
-# Ask for docker and install
-run_docker_commands!
+# # After install and configure template data
+::EtrTemplate::Base.after_install(opt)
 
-# # Final setup
-run_final_commands!
+# # Run after install callbacks
+devise_jwt.after_install
+pundit.after_install
+cors.after_install
+annotate.after_install
+letter_opener.after_install
+factory_bot.after_install
+rspec.after_install
+database_cleaner.after_install
+rubocop.after_install
