@@ -6,13 +6,16 @@ module EtrTemplate
   module Gems
     class FactoryBot < Base
       def install
+        return unless install?
+
         config_environments
       end
 
       private
 
       def config_environments
-        g.environment "config.factory_bot.definition_file_paths = ['spec/factories']", env: 'development'
+        g.environment "config.factory_bot.definition_file_paths = ['spec/factories']",
+                      env: 'development'
         g.environment "config.factory_bot.definition_file_paths = ['spec/factories']", env: 'test'
       end
 

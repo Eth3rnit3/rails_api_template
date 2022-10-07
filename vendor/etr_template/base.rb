@@ -7,12 +7,13 @@ module EtrTemplate
     include Helpers
 
     class << self
-      def configure(generator)
+      def configure(generator, configurable_gems)
         install_docker = generator.ask 'Dockerize application? y/N'
 
         {
           generator: generator,
-          docker: install_docker.match?(EtrTemplate::Helpers::CONFIRM_REGEX)
+          docker: install_docker.match?(EtrTemplate::Helpers::CONFIRM_REGEX),
+          **ask_for_gems(generator, configurable_gems)
         }
       end
 
@@ -36,7 +37,8 @@ module EtrTemplate
       end
 
       def config_environments(generator)
-        generator.environment "routes.default_url_options[:host] = 'localhost:3000'", env: 'development'
+        generator.environment "routes.default_url_options[:host] = 'localhost:3000'",
+                              env: 'development'
       end
 
       def copy_files_from_template(generator)
@@ -68,6 +70,14 @@ module EtrTemplate
         end
         generator.git add: '.'
         generator.git commit: "-a -m 'Initial commit'"
+      end
+
+      def ask_for_gems(generator, configurable_gems)
+        configurable_gems.map do |configurable_gem|
+          answer = generator.ask "Install and configure #{configurable_gem}? Y/n"
+          confirm_install = answer.blank? || answer.match?(EtrTemplate::Helpers::CONFIRM_REGEX)
+          [configurable_gem.downcase.to_sym, confirm_install]
+        end.to_h
       end
     end
   end
