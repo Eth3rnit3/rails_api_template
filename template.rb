@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 def source_paths
   [__dir__, "#{__dir__}/vendor", "#{__dir__}/templates", "#{__dir__}/docker"]
 end

@@ -13,11 +13,14 @@ AllCops:
   Exclude:
     - docker/
 
+Style/Documentation:
+  Enabled: false
+
 Style/Encoding:
   Enabled: false
 
 Layout/LineLength:
-  Max: 99
+  Max: 120
 
 Metrics/MethodLength:
   Max: 15

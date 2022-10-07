@@ -11,7 +11,7 @@ module EtrTemplate
         return unless opt[:docker]
 
         dockerize(opt)
-        configure_database(opt)
+        configure_databases(opt)
         config_logger(opt)
       end
 
@@ -26,9 +26,14 @@ module EtrTemplate
         opt[:generator].copy_file 'Makefile', 'Makefile'
       end
 
-      def configure_database(opt)
+      def configure_databases(opt)
         return unless DB_ADAPTERS.include? opt[:database]
 
+        config_database_with_environment(opt)
+        config_postgres(opt) if opt[:database] == 'postgresql'
+      end
+
+      def config_database_with_environment(opt)
         opt[:generator].gsub_file 'config/database.yml', /username:\s\w*$/,
                                   "username: <%= ENV['DATABASE_USER'] %>"
         opt[:generator].gsub_file 'config/database.yml', /password:$/,
@@ -37,13 +42,13 @@ module EtrTemplate
                                   "host: <%= ENV['DATABASE_HOST'] %>"
         opt[:generator].gsub_file 'config/database.yml', /database:\s\w*$/,
                                   "database: <%= ENV['DATABASE_NAME'] %>"
+      end
 
-        if opt[:database] == 'postgresql'
-          opt[:generator].template 'init.sql.erb', 'init.sql'
-          opt[:generator].gsub_file 'config/database.yml', /#username/, 'username'
-          opt[:generator].gsub_file 'config/database.yml', /#password/, 'password'
-          opt[:generator].gsub_file 'config/database.yml', /#host/, 'host'
-        end
+      def config_postgres(opt)
+        opt[:generator].template 'init.sql.erb', 'init.sql'
+        opt[:generator].gsub_file 'config/database.yml', /#username/, 'username'
+        opt[:generator].gsub_file 'config/database.yml', /#password/, 'password'
+        opt[:generator].gsub_file 'config/database.yml', /#host/, 'host'
       end
 
       def config_logger(opt)
