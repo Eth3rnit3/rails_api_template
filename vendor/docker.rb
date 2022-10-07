@@ -17,7 +17,7 @@ def dockerize!
 end
 
 def configure_database!
-  return unless Eth3rnit3Template::DB_ADAPTERS.include? options['database']
+  return unless db_compatible?
 
   copy_file 'config/database.yml', force: true
   template 'init.sql.erb', 'init.sql'

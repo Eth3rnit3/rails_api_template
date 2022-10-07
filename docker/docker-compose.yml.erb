@@ -6,8 +6,8 @@ x-app: &default-app
     args:
       - "RAILS_ENV=${RAILS_ENV:-development}"
   depends_on:
-    - <%="#{app_name}-database"%>
     - <%="#{app_name}-redis"%>
+    <%="- #{app_name}-database" if db_compatible? %>
   env_file:
     - .env
   restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
@@ -19,16 +19,7 @@ x-app: &default-app
     - <%="#{app_name}_bundler_gems"%>:/usr/local/bundle
 
 services:
-  <%="#{app_name}-database"%>:
-    container_name: <%="#{app_name}-database"%>
-    image: postgres:12.1
-    env_file:
-      - .env
-    restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
-    stop_grace_period: "3s"
-    volumes:
-      - <%="#{app_name}_data"%>:/var/lib/postgresql/data
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+  <%= render_partial('services/postgresql.yml.erb', binding) if postgresql? %>
 
   <%="#{app_name}-redis"%>:
     container_name: <%="#{app_name}-redis"%>
@@ -53,6 +44,6 @@ services:
     command: worker
 
 volumes:
-  <%="#{app_name}_data"%>:
+  <%="#{app_name}_data" if postgresql? %>:
   <%="#{app_name}_bundler_gems"%>:
   <%="#{app_name}_redis"%>:
