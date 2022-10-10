@@ -16,4 +16,8 @@ RUN bundle check || bundle install
 
 COPY . /<%=app_name%>
 
+RUN useradd <%=app_name%>_user -m -u 1000
+
+USER <%=app_name%>_user
+
 ENTRYPOINT ["/<%=app_name%>/docker-entrypoint.sh"]

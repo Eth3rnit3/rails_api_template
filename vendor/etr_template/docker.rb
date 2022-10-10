@@ -29,19 +29,26 @@ module EtrTemplate
       def configure_databases(opt)
         return unless DB_ADAPTERS.include? opt[:database]
 
-        config_database_with_environment(opt)
+        config_database_with_environment(opt[:generator].destination_root)
         config_postgres(opt) if opt[:database] == 'postgresql'
       end
 
-      def config_database_with_environment(opt)
-        opt[:generator].gsub_file 'config/database.yml', /username:\s\w*$/,
-                                  "username: <%= ENV['DATABASE_USER'] %>"
-        opt[:generator].gsub_file 'config/database.yml', /password:$/,
-                                  "password: <%= ENV['DATABASE_PASSWORD'] %>"
-        opt[:generator].gsub_file 'config/database.yml', /host:\s\w*$/,
-                                  "host: <%= ENV['DATABASE_HOST'] %>"
-        opt[:generator].gsub_file 'config/database.yml', /database:\s\w*$/,
-                                  "database: <%= ENV['DATABASE_NAME'] %>"
+      def config_database_with_environment(root_path)
+        config_path = "#{root_path}/config/database.yml"
+        config = YAML.load_file config_path
+        default = config.delete('default')
+
+        config.each_key do |env|
+          config[env]['adapter']  = default['adapter']
+          config[env]['encoding'] = default['encoding']
+          config[env]['pool']     = default['pool']
+          config[env]['host']     = "<%= ENV['DATABASE_HOST'] %>"
+          config[env]['database'] = "<%= ENV['DATABASE_NAME'] %>_#{env}"
+          config[env]['username'] = "<%= ENV['DATABASE_USER'] %>"
+          config[env]['password'] = "<%= ENV['DATABASE_PASSWORD'] %>"
+        end
+
+        File.write(config_path, config.to_yaml)
       end
 
       def config_postgres(opt)
