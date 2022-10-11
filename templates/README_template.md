@@ -27,7 +27,26 @@ rails s
 ```shell
 curl -X GET http://localhost:3000/health
 
-# {"status":"public"}
+# {"message":"public"}
+```
+
+## Auth
+### Sign up
+```shell
+curl -XPOST -H "Content-Type: application/json" -d '{ "user": { "email": "user@email.com", "password": "mypassword" } }' http://localhost:3000/users
+
+# {"message":"Signed up."}
+```
+
+### Sign in
+```shell
+curl -v -XPOST -H "Content-Type: application/json" -d '{ "user": { "email": "user@email.com", "password": "mypassword" } }' http://localhost:3000/users/sign_in
+
+# ...
+# < Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwic2NwIjoidXNlciIsImF1ZCI6bnVsbCwiaWF0IjoxNjY1NTI0MzI5LCJleHAiOjE2NjY4MjAzMjksImp0aSI6IjJhY2VjODZlLTJmY2UtNDJhZC04YzZmLWJmM2JjYTIzOWMyNCJ9.X8nCad7gEspNOdNJ5jBHNl9D_z_nc3Dv8YN0Jl5FvX0
+# ...
+
+# {"message":"Logged."}
 ```
 
 ## Call private api
@@ -39,22 +58,10 @@ curl -X GET http://localhost:3000/api/health
 ```
 
 ### Auth success
-Generate an valid jwt token
 ```shell
-rails c
-```
-```ruby
-User.last.jwt
+curl -X GET http://localhost:3000/api/health -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwic2NwIjoidXNlciIsImF1ZCI6bnVsbCwiaWF0IjoxNjY1NTI0MzI5LCJleHAiOjE2NjY4MjAzMjksImp0aSI6IjJhY2VjODZlLTJmY2UtNDJhZC04YzZmLWJmM2JjYTIzOWMyNCJ9.X8nCad7gEspNOdNJ5jBHNl9D_z_nc3Dv8YN0Jl5FvX0"
 
-# "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwic2NwIjoidXNlciIsImF1ZCI6bnVsbCwiaWF0IjoxNjY0NjU0NDI5LCJleHAiOjE2NjQ2NTgwMjksImp0aSI6IjY1Yjk2NTAzLTBkOWMtNDljMi05NzkyLTc2YjQyMTQ1YThlNCJ9.Ivig6RQJ1iCFLE5WHlVH4MDcIrgEQVJpQt8UxLwJrbw"
-
-exit
-```
-
-```shell
-curl -X GET http://localhost:3000/api/health -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwic2NwIjoidXNlciIsImF1ZCI6bnVsbCwiaWF0IjoxNjY0NjU0NDI5LCJleHAiOjE2NjQ2NTgwMjksImp0aSI6IjY1Yjk2NTAzLTBkOWMtNDljMi05NzkyLTc2YjQyMTQ1YThlNCJ9.Ivig6RQJ1iCFLE5WHlVH4MDcIrgEQVJpQt8UxLwJrbw"
-
-# {"status":"private"}
+# {"message":"private"}
 ```
 
 ## Rspec

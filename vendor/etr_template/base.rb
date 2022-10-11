@@ -46,6 +46,8 @@ module EtrTemplate
         generator.copy_file 'README_template.md', 'README.md', force: true
         # App
         generator.copy_file 'app/controllers/application_controller.rb', force: true
+        generator.copy_file 'app/controllers/sessions_controller.rb'
+        generator.copy_file 'app/controllers/registrations_controller.rb'
         generator.copy_file 'app/controllers/api/application_controller.rb'
         generator.copy_file 'app/models/user.rb', force: true
         # Db

@@ -5,9 +5,11 @@ class User < ApplicationRecord
 
   devise  :database_authenticatable,
           :jwt_authenticatable,
+          :registerable,
           jwt_revocation_strategy: Devise::JWT::RevocationStrategies::Null
 
   def jwt
-    Devise::JWT::TestHelpers.auth_headers({}, self)['Authorization']
+    token, _payload = Warden::JWTAuth::UserEncoder.new.call(self, :user, Warden::JWTAuth.config.aud_header)
+    token
   end
 end

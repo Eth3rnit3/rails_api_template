@@ -6,7 +6,7 @@ module Api
     before_action :authenticate_user!
 
     def health
-      render json: { status: 'private' }
+      render json: { message: 'private' }
     end
   end
 end

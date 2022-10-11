@@ -33,14 +33,25 @@ module EtrTemplate
 
       def add_jwt_config_to_devise
         g.inject_into_file 'config/initializers/devise.rb', after: 'Devise.setup do |config|' do
-          "\n  config.jwt do |jwt|\n    jwt.secret = Rails.application.credentials.jwt_secret!\n  end"
+          <<-RUBY
+            config.jwt do |jwt|
+              jwt.secret = Rails.application.credentials.jwt_secret
+              jwt.dispatch_requests = [
+                ['POST', %r{^/sign_in$}]
+              ]
+              jwt.revocation_requests = [
+                ['DELETE', %r{^/sign_out$}]
+              ]
+              jwt.expiration_time = 15.day.to_i
+            end
+          RUBY
         end
       end
 
       def init_sessions_store
-        g.initializer 'session_store.rb', <<-CODE
+        g.initializer 'session_store.rb', <<-RUBY
             Rails.application.config.session_store :disabled
-        CODE
+        RUBY
       end
 
       def setup_jwt_secret

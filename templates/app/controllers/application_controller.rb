@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class ApplicationController < ActionController::Base
+class ApplicationController < ActionController::API
   def health
-    render json: { status: 'public' }
+    render json: { message: 'public' }
   end
 end

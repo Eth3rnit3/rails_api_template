@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, defaults: { format: :json }, controllers: {
+    sessions: 'sessions',
+    registrations: 'registrations'
+  }
 
   devise_scope :user do
     # Redirests signing out users back to sign-in
